@@ -20,33 +20,17 @@ public class AppliClient {
 			PORT = Integer.parseInt(sc.nextLine());
 			
 			try {
-				Socket maSocket = new Socket(ip, PORT);
-				
+				Socket maSocket = new Socket(ip, PORT);				
 				PrintWriter socketOut = new PrintWriter(maSocket.getOutputStream(), true);
-				BufferedReader socketIn = new BufferedReader (new InputStreamReader(maSocket.getInputStream()));
-				
-				System.out.println("Connection avec le serveur : "  + ip);
-				
+				BufferedReader socketIn = new BufferedReader (new InputStreamReader(maSocket.getInputStream()));			
+				System.out.println("Connection avec le serveur : "  + ip);			
 				String line;
-				while (true) {
-					
+				while (true) {					
 					line = socketIn.readLine();
-					if(line == null || line == "\n") break;
-					
-					String[] str = line.split("##");
-					line = "";
-					for (int i = 0; i < str.length; i++) 
-						line += str[i] + "\n";
-					
-					System.out.print(line);
-					
-					System.out.print("> ");
-					
+					System.out.print(line.replace("**", "\n"));
+					System.out.print("> ");				
 					socketOut.println(sc.nextLine());
 				}
-				
-				maSocket.close();
-				
 			} catch (UnknownHostException e) {} catch (IOException e) {}
 		}
 	}
